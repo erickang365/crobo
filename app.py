@@ -5,9 +5,9 @@ import streamlit as st
 import time
 
 # load_dotenv()
-# API_KEY = os.environ['OPENAI_API_KEY']
+API_KEY = os.environ['OPENAI_API_KEY']
 
-# client = OpenAI(api_key=API_KEY)
+client = OpenAI(api_key=API_KEY)
 
 #thread id를 하나로 관리하기 위함
 if 'thread_id' not in st.session_state:
