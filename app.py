@@ -23,7 +23,13 @@ assistant_id = "asst_8jhwuoPJibwLhyBApNgHYyvf"
 thread_messages = client.beta.threads.messages.list(thread_id, order="asc")
 
 #페이지 제목
-st.header("Kcosw.com AI helper")
+# st.header("Kcosw.com AI helper")
+
+st.title("💬 Kcosw.com Chatbot")
+st.caption("🚀 A AI chatbot powered by CROBO Corp.")
+if "messages" not in st.session_state:
+    st.session_state["messages"] = [{"role": "assistant", "content": "Do you want to buy Korean cosmetics wholesale?"}]
+
 
 #메세지 역순으로 가져와서 UI에 뿌려주기
 for msg in thread_messages.data:
