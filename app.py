@@ -19,9 +19,12 @@ thread_id = st.session_state.thread_id
 #미리 만들어 둔 Assistant
 assistant_id = "asst_8jhwuoPJibwLhyBApNgHYyvf"
 
+#메세지 모두 불러오기
+thread_messages = client.beta.threads.messages.list(thread_id, order="asc")
+
 # Streamlit 페이지 제목
 st.title("💬 Kcosw.com Chatbot")
-st.caption("🚀 A AI chatbot powered by CROBO Corp.")
+st.caption("🚀 A KCOSW.com AI Helper powered by CROBO Corp.")
 
 # 초기 메시지 설정
 if "messages" not in st.session_state:
@@ -45,6 +48,10 @@ if prompt:
         content=prompt
     )
 
+    #입력한 메세지 UI에 표시
+    with st.chat_message(message.role):
+        st.write(message.content[0].text.value)
+    
     # RUN을 돌리는 과정
     run = client.beta.threads.runs.create(
         thread_id=thread_id,
@@ -64,6 +71,11 @@ if prompt:
     messages = client.beta.threads.messages.list(
         thread_id=thread_id
     )
+
+    #마지막 메세지 UI에 추가하기
+    with st.chat_message(messages.data[0].role):
+        st.write(messages.data[0].content[0].text.value)
+        
     # 마지막 메시지 UI에 추가
-    response_content = messages.data[0].content[0].text.value
-    st.session_state["messages"].append({"role": "assistant", "content": response_content})
+    # response_content = messages.data[0].content[0].text.value
+    # st.session_state["messages"].append({"role": "assistant", "content": response_content})
